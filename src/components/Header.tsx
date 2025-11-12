@@ -4,7 +4,7 @@ import { SiteConfig } from '../config/index';
 export default function Header() {
     return (
         <header className="sticky w-full border-b shadow-sm backdrop-blur">
-            <div className="container flex items-center h-14 mx-auto">
+            <div className="container flex items-center justify-between h-14 mx-auto">
                 <div className="flex items-center space-x-6 md:gap-10">
                     <Link to="/">
                         <h1 className="font-bold">{SiteConfig.name}</h1>
@@ -12,6 +12,9 @@ export default function Header() {
                     <nav>
                         <Link to="/about">About</Link>
                     </nav>
+                </div>
+                <div>
+                    <Link to='/dashboard'>Dashboard</Link>
                 </div>
             </div>
         </header>
