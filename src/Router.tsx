@@ -3,6 +3,10 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 import Layout from "./components/Layout";
+import DashboardLayout from "./components/Dashboard";
+import DashboardIndex from "./pages/dashboard/DashboardIndex";
+import DashboardProducts from "./pages/dashboard/DashboardProducts";
+
 
 const router = createBrowserRouter([
     {
@@ -20,6 +24,24 @@ const router = createBrowserRouter([
             {
                 path: '*',
                 element: <NotFound />
+            }
+        ]
+    },
+    {
+        path: 'dashboard',
+        element: <DashboardLayout />,
+        children: [
+            {
+                index: true,
+                element: <DashboardLayout />
+            },
+            {
+                path: 'dashboard',
+                element: <DashboardIndex />
+            },
+            {
+                path: 'products',
+                element: <DashboardProducts />
             }
         ]
     }
