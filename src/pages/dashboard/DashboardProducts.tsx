@@ -1,3 +1,11 @@
+import type { Product } from "../../types";
+import { getProducts } from "../../utils/fake-api";
+
+export async function loader(): Promise<{ products: Product[] }> {
+    const products = await getProducts();
+    return { products };
+}
+
 export default function DashboardProducts() {
     return (
         <div className="space-y-12">
