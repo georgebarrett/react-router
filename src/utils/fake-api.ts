@@ -1,4 +1,4 @@
-import { EditProductDto, Product, ProductDto } from '../types';
+import type { EditProductDto, Product, ProductDto } from '../types';
 
 // fake network request
 async function fakeNetworkRequest() {
