@@ -9,6 +9,9 @@ import ErrorPage from "./pages/Error";
 import DashboardProducts, {
     loader as DashboardProductsLoader
 } from "./pages/dashboard/DashboardProducts";
+import DashboardProduct, {
+    loader as DashboardProductLoader
+} from "./pages/dashboard/DashboardProduct";
 
 
 const router = createBrowserRouter([
@@ -42,6 +45,12 @@ const router = createBrowserRouter([
                 path: 'products',
                 element: <DashboardProducts />,
                 loader: DashboardProductsLoader,
+                errorElement: <ErrorPage />
+            },
+            {
+                path: 'products/:productId',
+                element: <DashboardProduct />,
+                loader: DashboardProductLoader,
                 errorElement: <ErrorPage />
             }
         ]
