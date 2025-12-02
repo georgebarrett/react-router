@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { SiteConfig } from "../config/index";
+import { siteConfig } from "../config/index";
 
 export default function Footer() {
     return (
@@ -8,7 +8,7 @@ export default function Footer() {
                 <p className="text-center text-sm md:text-left">
                     &copy;{' '}
                     <Link to='/' className="underline-offset-4 hover:underline">
-                        {SiteConfig.name}
+                        {siteConfig.name}
                     </Link>
                 </p>
             </div>

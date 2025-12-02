@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { SiteConfig } from '../config/index';
+import { siteConfig } from '../config/index';
 
 export default function Header() {
     return (
@@ -7,7 +7,7 @@ export default function Header() {
             <div className="container flex items-center justify-between h-14 mx-auto">
                 <div className="flex items-center space-x-6 md:gap-10">
                     <Link to="/">
-                        <h1 className="font-bold">{SiteConfig.name}</h1>
+                        <h1 className="font-bold">{siteConfig.name}</h1>
                     </Link>
                     <nav>
                         <Link to="/about">About</Link>
