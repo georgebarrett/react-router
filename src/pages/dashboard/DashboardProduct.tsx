@@ -1,6 +1,6 @@
-import { ParamParseKey, Params, useLoaderData, Navigate } from "react-router-dom";
+import type { ParamParseKey, Params, useLoaderData, Navigate } from "react-router-dom";
 import { siteConfig } from "../../config";
-import { Product } from "../../types";
+import type { Product } from "../../types";
 import { getProduct } from "../../utils/fake-api";
 
 const path = 'dashboard/products/:productId';
