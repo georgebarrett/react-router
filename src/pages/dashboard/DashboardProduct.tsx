@@ -1,4 +1,4 @@
-import type { ParamParseKey, Params, useLoaderData, Navigate } from "react-router-dom";
+import { ParamParseKey, Params, useLoaderData, Navigate } from "react-router-dom";
 import { siteConfig } from "../../config";
 import type { Product } from "../../types";
 import { getProduct } from "../../utils/fake-api";
