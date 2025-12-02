@@ -5,6 +5,7 @@ import NotFound from "./pages/NotFound";
 import Layout from "./components/Layout";
 import DashboardLayout from "./components/Dashboard";
 import DashboardIndex from "./pages/dashboard/DashboardIndex";
+import ErrorPage from "./pages/Error";
 import DashboardProducts, {
     loader as DashboardProductsLoader
 } from "./pages/dashboard/DashboardProducts";
@@ -40,7 +41,8 @@ const router = createBrowserRouter([
             {
                 path: 'products',
                 element: <DashboardProducts />,
-                loader: DashboardProductsLoader
+                loader: DashboardProductsLoader,
+                errorElement: <ErrorPage />
             }
         ]
     }
