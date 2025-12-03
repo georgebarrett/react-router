@@ -1,5 +1,36 @@
 import { Form, redirect } from "react-router-dom";
 import { siteConfig } from "../../config";
+import { addProduct } from "../../utils/fake-api";
+
+export async function action({ request }: { request: Request }) {
+    const errors: { [key: string]: string } = {};
+
+    try {
+        const formData = await request.formData();
+
+        const title = formData.get('title') as string;
+        const description = formData.get('description') as string;
+        const price = formData.get('price') as string;
+        const brand = formData.get('brand') as string;
+        const category = formData.get('category') as string;
+        const imageUrl = formData.get('imageUrl') as string;
+
+        await addProduct({
+            title,
+            description,
+            price: parseFloat(price),
+            brand,
+            category,
+            imageUrl
+        });
+
+        return redirect(`/dashboard/products`);
+    
+    } catch (e) {
+        errors.form = 'nightmare creation failed. please try again later';
+        return { errors };
+    }
+}
 
 export default function DashboardNewProduct() {
     return (
