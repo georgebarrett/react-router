@@ -13,7 +13,7 @@ export default function Header() {
                         <Link to="/about">About</Link>
                     </nav>
                 </div>
-                <div>
+                <div className="ml-6">
                     <Link to='/dashboard'>Dashboard</Link>
                 </div>
             </div>
