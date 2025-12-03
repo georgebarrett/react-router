@@ -34,24 +34,27 @@ const router = createBrowserRouter([
         ]
     },
     {
-        path: 'dashboard',
+        path: '/dashboard',
         element: <DashboardLayout />,
         children: [
             {
-                index: true,
-                element: <DashboardIndex />
-            },
-            {
-                path: 'products',
-                element: <DashboardProducts />,
-                loader: DashboardProductsLoader,
-                errorElement: <ErrorPage />
-            },
-            {
-                path: 'products/:productId',
-                element: <DashboardProduct />,
-                loader: DashboardProductLoader,
-                errorElement: <ErrorPage />
+                errorElement: <ErrorPage />,
+                children: [
+                    {
+                        index: true,
+                        element: <DashboardIndex />
+                    },
+                    {
+                        path: 'products',
+                        element: <DashboardProducts />,
+                        loader: DashboardProductsLoader,
+                    },
+                    {
+                        path: 'products/:productId',
+                        element: <DashboardProduct />,
+                        loader: DashboardProductLoader,
+                    }
+                ]
             }
         ]
     }
