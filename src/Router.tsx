@@ -6,6 +6,7 @@ import Layout from "./components/Layout";
 import DashboardLayout from "./components/Dashboard";
 import DashboardIndex from "./pages/dashboard/DashboardIndex";
 import ErrorPage from "./pages/Error";
+import FormsTest, { action as formsTestAction } from "./pages/FormsTest";
 import DashboardProducts, {
     loader as DashboardProductsLoader
 } from "./pages/dashboard/DashboardProducts";
@@ -65,6 +66,11 @@ const router = createBrowserRouter([
                 ]
             }
         ]
+    },
+    {
+        path: '/forms-test',
+        element: <FormsTest />,
+        action: formsTestAction
     }
 ]);
 
