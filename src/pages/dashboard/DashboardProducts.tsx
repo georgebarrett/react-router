@@ -20,7 +20,7 @@ export default function DashboardProducts() {
                     <p className="text-lg">Listing of NIGHTMARES</p>
                 </div>
                 <Link
-                    to='/dashbaord/products/new'
+                    to='/dashboard/products/new'
                     className="bg-black hover:bg-gray-800 px-4 py-2 rounded text-white"
                 >
                     add new
