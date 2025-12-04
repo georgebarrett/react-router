@@ -1,4 +1,4 @@
-import { Form, redirect } from "react-router-dom";
+import { Form, redirect, useActionData } from "react-router-dom";
 import { siteConfig } from "../../config";
 import { addProduct } from "../../utils/fake-api";
 
@@ -33,12 +33,18 @@ export async function action({ request }: { request: Request }) {
 }
 
 export default function DashboardNewProduct() {
+    const actionData = useActionData() as { errors: { [key: string]: string } };
+    const { errors } = actionData ?? {};
+
     return (
         <div className="space-y-12">
             <header>
                 <h1 className="font-bold text-3xl md:text-4xl">new nightmare</h1>
                 <p className="text-lg">create a new nightmare</p>
             </header>
+
+            {errors?.form && <div className="font-bold text-3xl md:text-4xl">{errors?.form}</div>}
+
             <Form method="post" className="space-y-6">
                 <label className="flex flex-col space-y-1">
                     <span className="font-medium">nightmare title</span>
