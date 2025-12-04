@@ -12,6 +12,9 @@ import DashboardProducts, {
 import DashboardProduct, {
     loader as DashboardProductLoader
 } from "./pages/dashboard/DashboardProduct";
+import DashboardNewProduct, {
+  action as DashboardNewProductAction,
+} from "./pages/dashboard/DashboardNewProduct";
 
 
 const router = createBrowserRouter([
@@ -48,6 +51,11 @@ const router = createBrowserRouter([
                         path: 'products',
                         element: <DashboardProducts />,
                         loader: DashboardProductsLoader,
+                    },
+                    {
+                        path: 'products/new',
+                        element: <DashboardNewProduct />,
+                        action: DashboardNewProductAction
                     },
                     {
                         path: 'products/:productId',
