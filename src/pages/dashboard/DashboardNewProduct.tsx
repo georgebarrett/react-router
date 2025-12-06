@@ -67,6 +67,7 @@ export default function DashboardNewProduct() {
                         required
                         className="border p-2 rounded"
                     />
+                    {errors?.title && <p className="text-red-800 text-sm">{errors.title}</p>}
                 </label>
                 <label className="flex flex-col space-y-1">
                     <span className="font-medium">nightmare description</span>
@@ -80,6 +81,7 @@ export default function DashboardNewProduct() {
                         required
                         className="border p-2 rounded"
                     />
+                    {errors?.price && <p className="text-red-800 text-sm">{errors.price}</p>}
                 </label>
                 <label className="flex flex-col space-y-1">
                     <span className="font-medium">brand</span>
@@ -98,6 +100,7 @@ export default function DashboardNewProduct() {
                         required
                         className="border p-2 rounded"
                     />
+                    {errors?.category && <p className="text-red-800 text-sm">{errors.category}</p>}
                 </label>
                 <label className="flex flex-col space-y-1">
                     <span className="font-medium">Image URL</span>
@@ -107,6 +110,7 @@ export default function DashboardNewProduct() {
                         required
                         className="border p-2 rounded"
                     />
+                    {errors?.imageUrl && <p className="text-red-800 text-sm">{errors.imageUrl}</p>}
                 </label>
                 <div>
                     <button
