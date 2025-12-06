@@ -1,6 +1,7 @@
 import { Form, redirect, useActionData } from "react-router-dom";
 import { siteConfig } from "../../config";
 import { addProduct } from "../../utils/fake-api";
+import { isValidUrl, isValidPrice } from "../../utils";
 
 export async function action({ request }: { request: Request }) {
     const errors: { [key: string]: string } = {};
@@ -14,6 +15,14 @@ export async function action({ request }: { request: Request }) {
         const brand = formData.get('brand') as string;
         const category = formData.get('category') as string;
         const imageUrl = formData.get('imageUrl') as string;
+
+        if (typeof title !== 'string' || title.length < 2) {
+            errors.title = 'product title must contain more than 2 characters'
+        } else if (!isValidUrl(imageUrl)) {
+            errors.imageUrl = 'product must have a valid image URL'
+        } else if (!isValidPrice(price)) {
+            errors.price = 'please enter a valid price'
+        }
 
         await addProduct({
             title,
