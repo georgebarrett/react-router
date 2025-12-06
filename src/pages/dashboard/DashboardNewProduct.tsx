@@ -24,6 +24,10 @@ export async function action({ request }: { request: Request }) {
             errors.price = 'please enter a valid price'
         }
 
+        if (Object.keys(errors).length) {
+            return { errors };
+        }
+
         await addProduct({
             title,
             description,
