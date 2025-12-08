@@ -16,8 +16,8 @@ export default function DashboardEditProduct() {
     return (
         <div className="space-y-12">
             <header>
-                <h1 className="font-bold text-3xl md:text-4xl">new nightmare</h1>
-                <p className="text-lg">create a new nightmare</p>
+                <h1 className="font-bold text-3xl md:text-4xl">edit nightmare</h1>
+                <p className="text-lg">edit nightmare details</p>
             </header>
 
             {errors?.form && <div className="font-bold text-3xl md:text-4xl">{errors?.form}</div>}
@@ -28,6 +28,7 @@ export default function DashboardEditProduct() {
                     <input
                         type="text"
                         name="title"
+                        defaultValue={product.title}
                         required
                         className="border p-2 rounded"
                     />
@@ -35,13 +36,14 @@ export default function DashboardEditProduct() {
                 </label>
                 <label className="flex flex-col space-y-1">
                     <span className="font-medium">nightmare description</span>
-                    <textarea name="description" className="border p-2 rounded" />
+                    <textarea name="description" defaultValue={product.description} className="border p-2 rounded" />
                 </label>
                 <label className="flex flex-col space-y-1">
                     <span className="font-medium">price</span>
                     <input
                         type="text"
                         name="price"
+                        defaultValue={product.price}
                         required
                         className="border p-2 rounded"
                     />
@@ -52,6 +54,7 @@ export default function DashboardEditProduct() {
                     <input 
                         type="text"
                         name="brand"
+                        defaultValue={product.brand}
                         required
                         className="border p-2 rounded"
                     />
@@ -61,6 +64,7 @@ export default function DashboardEditProduct() {
                     <input
                         type="text"
                         name="category"
+                        defaultValue={product.category}
                         required
                         className="border p-2 rounded"
                     />
@@ -71,6 +75,7 @@ export default function DashboardEditProduct() {
                     <input
                         type="text"
                         name="imageUrl"
+                        defaultValue={product.imageUrl}
                         required
                         className="border p-2 rounded"
                     />
