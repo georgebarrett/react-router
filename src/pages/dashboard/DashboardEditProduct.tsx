@@ -9,6 +9,10 @@ export default function DashboardEditProduct() {
 
     const { errors } = actionData ?? {};
 
+    if (!product) {
+        return <Navigate to="/dashboard/products" replace={true} />
+    }
+
     return (
         <div className="space-y-12">
             <header>
