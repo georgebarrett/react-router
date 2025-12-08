@@ -4,7 +4,9 @@ import { addProduct } from "../../utils/fake-api";
 import { loader } from "./DashboardProduct"; 
 
 export default function DashboardEditProduct() {
+    const product = useLoaderData() as Awaited<ReturnType<typeof loader>>;
     const actionData = useActionData() as { errors: { [key: string]: string } };
+
     const { errors } = actionData ?? {};
 
     return (
