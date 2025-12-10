@@ -14,8 +14,11 @@ import DashboardProduct, {
     loader as DashboardProductLoader
 } from "./pages/dashboard/DashboardProduct";
 import DashboardNewProduct, {
-  action as DashboardNewProductAction,
+    action as DashboardNewProductAction
 } from "./pages/dashboard/DashboardNewProduct";
+import DashboardEditProduct, {
+    action as DashboardEditProductAction
+} from "./pages/dashboard/DashboardEditProduct";
 
 
 const router = createBrowserRouter([
@@ -62,6 +65,12 @@ const router = createBrowserRouter([
                         path: 'products/:productId',
                         element: <DashboardProduct />,
                         loader: DashboardProductLoader,
+                    },
+                    {
+                        path: 'products/productId/edit',
+                        element: <DashboardEditProduct />,
+                        loader: DashboardProductLoader,
+                        action: DashboardEditProductAction
                     }
                 ]
             }
