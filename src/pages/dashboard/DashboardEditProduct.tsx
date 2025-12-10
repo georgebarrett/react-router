@@ -1,7 +1,63 @@
 import { Form, redirect, useActionData, useLoaderData, Navigate } from "react-router-dom";
+import type { Params, ParamParseKey } from "react-router-dom";
 import { siteConfig } from "../../config";
 import { addProduct } from "../../utils/fake-api";
-import { loader } from "./DashboardProduct"; 
+import { loader } from "./DashboardProduct";
+import { isValidUrl } from "../../utils";
+
+const path = 'dashboard/products/:productId/edit';
+
+export async function action({
+    request,
+    params: { productId },
+}: {
+    request: Request;
+    params: Params<ParamParseKey<typeof path>>;
+}) {
+    if (!productId) {
+        throw new Error('Sorry, Product not found.')
+    }
+
+    const errors: { [key: string]: string } = {};
+
+    try {
+        const formData = await request.formData();
+
+        const title = formData.get('title') as string;
+        const description = formData.get('description') as string;
+        const price = formData.get('price') as string;
+        const brand = formData.get('brand') as string;
+        const category = formData.get('category') as string;
+        const imageUrl = formData.get('imageUrl') as string;
+
+        if (typeof title !== 'string' || title.length < 2) {
+            errors.title = 'product title must contain more than one character'
+        } else if (!price.match(/^\d+(\.\d{1,2})?$/)) {
+            errors.price = 'please enter a valid price'
+        } else if (!isValidUrl(imageUrl)) {
+            errors.price = 'please enter a valid image url'
+        }
+
+        if (Object.keys(errors).length) {
+            return { errors };
+        }
+
+        await addProduct({
+            title,
+            description,
+            price: parseFloat(price),
+            brand,
+            category,
+            imageUrl
+        });
+
+        return redirect(`/dashboard/products`);
+    
+    } catch (e) {
+        errors.form = 'nightmare creation failed. please try again later';
+        return { errors };
+    }
+}
 
 export default function DashboardEditProduct() {
     const product = useLoaderData() as Awaited<ReturnType<typeof loader>>;
@@ -85,6 +141,7 @@ export default function DashboardEditProduct() {
                     <button
                         type="submit"
                         className="bg-black hover:bg-gray-800 px-4 py-2 rounded text-white"
+                        disabled={isSubmitting}
                     >
                         save
                     </button>
