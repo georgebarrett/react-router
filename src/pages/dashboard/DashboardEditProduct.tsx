@@ -1,7 +1,7 @@
 import { Form, redirect, useActionData, useLoaderData, Navigate } from "react-router-dom";
 import type { Params, ParamParseKey } from "react-router-dom";
 import { siteConfig } from "../../config";
-import { addProduct } from "../../utils/fake-api";
+import { editProduct } from "../../utils/fake-api";
 import { loader } from "./DashboardProduct";
 import { isValidUrl } from "../../utils";
 
@@ -42,7 +42,7 @@ export async function action({
             return { errors };
         }
 
-        await addProduct({
+        await editProduct(productId, {
             title,
             description,
             price: parseFloat(price),
