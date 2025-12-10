@@ -1,5 +1,5 @@
 import type { ParamParseKey, Params } from "react-router-dom";
-import { useLoaderData, Navigate } from "react-router-dom";
+import { useLoaderData, Navigate, Form } from "react-router-dom";
 import { siteConfig } from "../../config";
 import type { Product } from "../../types";
 import { getProduct } from "../../utils/fake-api";
@@ -49,6 +49,13 @@ export default function DashboardProduct() {
                         <dd>{product.price}</dd>
                     </div>
                 </dl>
+            </section>
+            <section className="flex items-center space-x-2">
+                <Form action="edit">
+                    <button type="submit" className="bg-black hover:bg-gray-800 px-4 py-2 rounded text-white">
+                        edit
+                    </button>
+                </Form>
             </section>
         </div>
     );
