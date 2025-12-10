@@ -56,6 +56,19 @@ export default function DashboardProduct() {
                         edit
                     </button>
                 </Form>
+                <Form
+                    method="post"
+                    action="destroy"
+                    onSubmit={(event) => {
+                        if (!confirm('are you sure you want to delete this product')) {
+                            event.preventDefault();
+                        }
+                    }}
+                />
+                    <button type="submit" className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded text-white">
+                        delete
+                    </button>
+                <Form/>
             </section>
         </div>
     );
