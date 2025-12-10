@@ -67,7 +67,7 @@ const router = createBrowserRouter([
                         loader: DashboardProductLoader,
                     },
                     {
-                        path: 'products/productId/edit',
+                        path: 'products/:productId/edit',
                         element: <DashboardEditProduct />,
                         loader: DashboardProductLoader,
                         action: DashboardEditProductAction
