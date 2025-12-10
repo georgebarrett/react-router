@@ -1,4 +1,4 @@
-import { Form, redirect, useActionData, useLoaderData, Navigate } from "react-router-dom";
+import { Form, redirect, useActionData, useLoaderData, useNavigation, Navigate } from "react-router-dom";
 import type { Params, ParamParseKey } from "react-router-dom";
 import { siteConfig } from "../../config";
 import { editProduct } from "../../utils/fake-api";
@@ -64,6 +64,9 @@ export default function DashboardEditProduct() {
     const actionData = useActionData() as { errors: { [key: string]: string } };
 
     const { errors } = actionData ?? {};
+
+    const navigation = useNavigation();
+    const isSubmitting = navigation.state === 'submitting';
 
     if (!product) {
         return <Navigate to="/dashboard/products" replace={true} />
