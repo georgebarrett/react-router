@@ -22,7 +22,7 @@ export default function DashboardProduct() {
     const product = useLoaderData() as Awaited<ReturnType<typeof loader>>;
 
     if (!product) {
-        return <Navigate to='/dashbaord/products' replace={true} />;
+        return <Navigate to='/dashboard/products' replace={true} />;
     }
 
     return (
