@@ -54,7 +54,7 @@ export async function action({
         return redirect(`/dashboard/products`);
     
     } catch (e) {
-        errors.form = 'nightmare creation failed. please try again later';
+        errors.form = 'saving the nightmare has failed. please try again later';
         return { errors };
     }
 }
