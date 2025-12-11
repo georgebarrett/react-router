@@ -3,13 +3,14 @@ import { siteConfig } from "../config/index";
 import ProductList from "../components/productsList";
 import type { Product } from "../types";
 import { getProducts } from "../utils/fake-api";
+import { Card, CardTitle, CardDescription, CardContent, CardImage } from "../components/Card";
 
 export async function loader(): Promise<{ products: Product[] }> {
     const products = await getProducts();
     return { products };
 }
 
-export default function DashboardProducts() {
+export default function Products() {
     const { products } = useLoaderData() as Awaited<ReturnType<typeof loader>>;
 
     return (
@@ -20,7 +21,29 @@ export default function DashboardProducts() {
                     <p className="text-lg">shop our NIGHTMARES</p>
                 </div>
             </header>
-            <ProductList products={products} />
+            <section>
+                {products.length ? (
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        {products.map((product) => (
+                            <Card key={product.id}>
+                                <CardImage>
+                                    <Link to={`/products/${product.id}`}>
+                                        <img src={product.imageUrl} className="object-cover aspect-square rounded-t-lg" />
+                                    </Link>
+                                </CardImage>
+                                <CardContent>
+                                    <CardTitle>
+                                        <Link to={`/products/${product.id}`}>{product.title}</Link>
+                                    </CardTitle>
+                                    <CardDescription>{product.description}</CardDescription>
+                                </CardContent>
+                            </Card>
+                        ))}
+                    </div>
+                ) : (
+                    <p className="bg-gray-50 border text-gray-500 p-6 rounded-lg">no products found</p>
+                )}
+            </section>
         </div>
     );
 }
