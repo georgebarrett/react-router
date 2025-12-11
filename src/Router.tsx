@@ -19,6 +19,7 @@ import DashboardNewProduct, {
 import DashboardEditProduct, {
     action as DashboardEditProductAction
 } from "./pages/dashboard/DashboardEditProduct";
+import { action as destroyAction } from './pages/dashboard/DashboardDestroyProduct'
 
 
 const router = createBrowserRouter([
@@ -71,6 +72,10 @@ const router = createBrowserRouter([
                         element: <DashboardEditProduct />,
                         loader: DashboardProductLoader,
                         action: DashboardEditProductAction
+                    },
+                    {
+                        path: 'products/:productId/destroy',
+                        action: destroyAction
                     }
                 ]
             }
