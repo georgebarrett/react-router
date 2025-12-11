@@ -1,7 +1,7 @@
 import { redirect, type ParamParseKey, type Params } from "react-router-dom";
 import { deleteProduct } from "../../utils/fake-api";
 
-const path = 'dashboard/products/:productId/delete';
+const path = 'dashboard/products/:productId/destroy';
 
 export async function action({
     params: { productId },
