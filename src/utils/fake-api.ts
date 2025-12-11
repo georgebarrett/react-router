@@ -103,7 +103,7 @@ export async function deleteProduct(id: string): Promise<Product> {
     throw new Error('no products to delete')
   }
 
-  const productsList: Product[] = JSON.parse('products');
+  const productsList: Product[] = JSON.parse(products);
   const index = productsList.findIndex(
     (product: Product) => product.id.toLowerCase() === id.toLocaleLowerCase()
   );
