@@ -3,12 +3,9 @@ import { siteConfig } from "../config/index";
 import ProductList from "../components/productsList";
 import type { Product } from "../types";
 import { getProducts } from "../utils/fake-api";
+import { loader } from "./dashboard/DashboardProducts";
 import { Card, CardTitle, CardDescription, CardContent, CardImage } from "../components/Card";
 
-export async function loader(): Promise<{ products: Product[] }> {
-    const products = await getProducts();
-    return { products };
-}
 
 export default function Products() {
     const { products } = useLoaderData() as Awaited<ReturnType<typeof loader>>;
