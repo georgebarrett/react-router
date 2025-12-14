@@ -3,8 +3,17 @@ import { siteConfig } from "../config/index";
 import ProductList from "../components/productsList";
 import type { Product } from "../types";
 import { getProducts } from "../utils/fake-api";
-import { loader } from "./dashboard/DashboardProducts";
 import { Card, CardTitle, CardDescription, CardContent, CardImage } from "../components/Card";
+
+
+export async function loader({ request }: { request: Request }) : Promise<{ products: Product[]; q: string}> {
+    const url = new URL(request.url);
+    const q = url.searchParams.get('q') ?? '';
+
+    const products = await getProducts(q);
+
+    return { products, q };
+}
 
 
 export default function Products() {
