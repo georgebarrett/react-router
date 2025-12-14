@@ -40,7 +40,7 @@ const router = createBrowserRouter([
             {
                 path: 'products',
                 element: <Products />,
-                loader: DashboardProductLoader 
+                loader: DashboardProductsLoader 
             },
             {
                 path: 'products/:productId',
