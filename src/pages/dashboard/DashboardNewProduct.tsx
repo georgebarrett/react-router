@@ -1,4 +1,4 @@
-import { Form, redirect, useActionData } from "react-router-dom";
+import { Form, redirect, useActionData, useNavigation } from "react-router-dom";
 import { siteConfig } from "../../config";
 import { addProduct } from "../../utils/fake-api";
 import { isValidUrl, isValidPrice } from "../../utils";
@@ -48,6 +48,9 @@ export async function action({ request }: { request: Request }) {
 export default function DashboardNewProduct() {
     const actionData = useActionData() as { errors: { [key: string]: string } };
     const { errors } = actionData ?? {};
+
+    const navigation = useNavigation();
+    const isSubmitting = navigation.state === 'submitting';
 
     return (
         <div className="space-y-12">
@@ -116,6 +119,7 @@ export default function DashboardNewProduct() {
                     <button
                         type="submit"
                         className="bg-black hover:bg-gray-800 px-4 py-2 rounded text-white"
+                        disabled={isSubmitting}
                     >
                         save
                     </button>
