@@ -1,5 +1,5 @@
 import type { ParamParseKey, Params } from "react-router-dom";
-import { useLoaderData, Navigate, Form } from "react-router-dom";
+import { useLoaderData, Navigate, Form, useNavigation } from "react-router-dom";
 import { siteConfig } from "../../config";
 import type { Product } from "../../types";
 import { getProduct } from "../../utils/fake-api";
@@ -20,6 +20,9 @@ export async function loader({
 
 export default function DashboardProduct() {
     const product = useLoaderData() as Awaited<ReturnType<typeof loader>>;
+
+    const navigation = useNavigation();
+    const isSubmitting = navigation.state === 'submitting';
 
     if (!product) {
         return <Navigate to='/dashboard/products' replace={true} />;
@@ -52,8 +55,12 @@ export default function DashboardProduct() {
             </section>
             <section className="flex items-center space-x-2">
                 <Form action="edit">
-                    <button type="submit" className="bg-black hover:bg-gray-800 px-4 py-2 rounded text-white">
-                        edit
+                    <button 
+                        type="submit" 
+                        className="bg-black hover:bg-gray-800 px-4 py-2 rounded text-white"
+                        disabled={isSubmitting}
+                        >
+                            edit
                     </button>
                 </Form>
                 <Form
@@ -65,8 +72,12 @@ export default function DashboardProduct() {
                         }
                     }}
                 >
-                    <button type="submit" className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded text-white">
-                        delete
+                    <button 
+                        type="submit" 
+                        className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded text-white"
+                        disabled={isSubmitting}
+                        >
+                            delete
                     </button>
                 </Form>
             </section>
