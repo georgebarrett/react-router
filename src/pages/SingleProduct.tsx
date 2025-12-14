@@ -1,6 +1,6 @@
 import type { ParamParseKey, Params } from "react-router-dom";
 import { useLoaderData, Navigate, Form } from "react-router-dom";
-import { siteConfig } from "../../config";
+import { siteConfig } from "../config/index";
 import { loader } from "./dashboard/DashboardProduct";
 
 
