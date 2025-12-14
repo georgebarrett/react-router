@@ -10,7 +10,7 @@ export default function SingleProduct() {
     const product = useLoaderData() as Awaited<ReturnType<typeof loader>>;
 
     if (!product) {
-        return <Navigate to='/dashboard/products' replace={true} />;
+        return <Navigate to='/products' replace={true} />;
     }
 
     return (
