@@ -6,6 +6,8 @@ import Layout from "./components/Layout";
 import DashboardLayout from "./components/Dashboard";
 import DashboardIndex from "./pages/dashboard/DashboardIndex";
 import ErrorPage from "./pages/Error";
+import Products from "./pages/Products";
+import SingleProduct from "./pages/SingleProduct";
 import FormsTest, { action as formsTestAction } from "./pages/FormsTest";
 import DashboardProducts, {
     loader as DashboardProductsLoader
@@ -19,7 +21,7 @@ import DashboardNewProduct, {
 import DashboardEditProduct, {
     action as DashboardEditProductAction
 } from "./pages/dashboard/DashboardEditProduct";
-import { action as destroyAction } from './pages/dashboard/DashboardDestroyProduct'
+import { action as destroyAction } from './pages/dashboard/DashboardDestroyProduct';
 
 
 const router = createBrowserRouter([
@@ -34,6 +36,16 @@ const router = createBrowserRouter([
             {
                 path: 'about',
                 element: <About />
+            },
+            {
+                path: 'products',
+                element: <Products />,
+                loader: DashboardProductLoader 
+            },
+            {
+                path: 'products/:productId',
+                element: <SingleProduct />,
+                loader: DashboardProductLoader
             },
             {
                 path: '*',
