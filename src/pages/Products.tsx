@@ -1,8 +1,9 @@
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, useLoaderData, useSubmit } from "react-router-dom";
 import { siteConfig } from "../config/index";
 import ProductList from "../components/productsList";
-import type { Product } from "../types";
 import { getProducts } from "../utils/fake-api";
+import type { Product } from "../types";
+import type { ChangeEvent } from "react";
 import { Card, CardTitle, CardDescription, CardContent, CardImage } from "../components/Card";
 
 
@@ -17,7 +18,15 @@ export async function loader({ request }: { request: Request }) : Promise<{ prod
 
 
 export default function Products() {
-    const { products } = useLoaderData() as Awaited<ReturnType<typeof loader>>;
+    const { products, q } = useLoaderData() as Awaited<ReturnType<typeof loader>>;
+    const submit = useSubmit();
+
+    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const isFirstSearch = !q.length;
+        submit(e.currentTarget.form, {
+            replace: !isFirstSearch
+        });
+    }
 
     return (
         <div className="space-y-12">
