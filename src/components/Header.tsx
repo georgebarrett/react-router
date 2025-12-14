@@ -3,7 +3,7 @@ import { siteConfig } from '../config/index';
 
 export default function Header() {
     const getNavLinkClasses = ({ isActive }: { isActive: boolean }) => {
-        return isActive ? 'font-semibold' : '';
+        return isActive ? 'font-semibold underline' : '';
     }
 
     return (
