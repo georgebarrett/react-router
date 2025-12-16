@@ -1,64 +1,62 @@
-import { Link, useLoaderData, useSubmit } from "react-router-dom";
-import { siteConfig } from "../config/index";
-import ProductList from "../components/productsList";
-import { getProducts } from "../utils/fake-api";
-import type { Product } from "../types";
-import type { ChangeEvent } from "react";
-import { Card, CardTitle, CardDescription, CardContent, CardImage } from "../components/Card";
+import { Link, useLoaderData, useSubmit } from 'react-router-dom';
+import { siteConfig } from '../config/index';
+import ProductList from '../components/productsList';
+import { getProducts } from '../utils/fake-api';
+import type { Product } from '../types';
+import type { ChangeEvent } from 'react';
+import { Card, CardTitle, CardDescription, CardContent, CardImage } from '../components/Card';
 
+export async function loader({ request }: { request: Request }): Promise<{ products: Product[]; q: string }> {
+  const url = new URL(request.url);
+  const q = url.searchParams.get('q') ?? '';
 
-export async function loader({ request }: { request: Request }) : Promise<{ products: Product[]; q: string}> {
-    const url = new URL(request.url);
-    const q = url.searchParams.get('q') ?? '';
+  const products = await getProducts(q);
 
-    const products = await getProducts(q);
-
-    return { products, q };
+  return { products, q };
 }
 
-
 export default function Products() {
-    const { products, q } = useLoaderData() as Awaited<ReturnType<typeof loader>>;
-    const submit = useSubmit();
+  const { products, q } = useLoaderData() as Awaited<ReturnType<typeof loader>>;
+  const submit = useSubmit();
 
-    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const isFirstSearch = !q.length;
-        submit(e.currentTarget.form, {
-            replace: !isFirstSearch
-        });
-    }
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const isFirstSearch = !q.length;
+    submit(e.currentTarget.form, {
+      replace: !isFirstSearch,
+    });
+  };
 
-    return (
-        <div className="space-y-12">
-            <header>
-                <div>
-                    <h1 className="font-bold text-3xl md:text-4xl">Shop Products</h1>
-                    <p className="text-lg">shop our NIGHTMARES</p>
-                </div>
-            </header>
-            <section>
-                {products.length ? (
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                        {products.map((product) => (
-                            <Card key={product.id}>
-                                <CardImage>
-                                    <Link to={`/products/${product.id}`}>
-                                        <img src={product.imageUrl} className="object-cover aspect-square rounded-t-lg" />
-                                    </Link>
-                                </CardImage>
-                                <CardContent>
-                                    <CardTitle>
-                                        <Link to={`/products/${product.id}`}>{product.title}</Link>
-                                    </CardTitle>
-                                    <CardDescription>{product.description}</CardDescription>
-                                </CardContent>
-                            </Card>
-                        ))}
-                    </div>
-                ) : (
-                    <p className="bg-gray-50 border text-gray-500 p-6 rounded-lg">no products found</p>
-                )}
-            </section>
+  return (
+    <div className="space-y-12">
+      <header>
+        <div>
+          <h1 className="font-bold text-3xl md:text-4xl">Shop Products</h1>
+          <p className="text-lg">shop our NIGHTMARES</p>
         </div>
-    );
+      </header>
+      <section>
+        {products.length ? (
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {products.map((product) => (
+              <Card key={product.id}>
+                <CardImage>
+                  <Link to={`/products/${product.id}`}>
+                    <img src={product.imageUrl} className="object-cover aspect-square rounded-t-lg" />
+                  </Link>
+                </CardImage>
+                <CardContent>
+                  <CardTitle>
+                    <Link to={`/products/${product.id}`}>{product.title}</Link>
+                  </CardTitle>
+                  <CardDescription>{product.description}</CardDescription>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        ) : (
+          <p className="bg-gray-50 border text-gray-500 p-6 rounded-lg">no products found</p>
+        )}
+      </section>
+    </div>
+  );
 }
