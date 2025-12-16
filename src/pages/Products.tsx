@@ -1,9 +1,10 @@
-import { Form, Link, useLoaderData, useSubmit } from 'react-router-dom';
+import { Form, Link, useLoaderData, useNavigation, useSubmit } from 'react-router-dom';
 import { siteConfig } from '../config/index';
 import ProductList from '../components/productsList';
 import { getProducts } from '../utils/fake-api';
 import type { Product } from '../types';
 import type { ChangeEvent } from 'react';
+import Spinner from '../components/Spinner';
 import { Card, CardTitle, CardDescription, CardContent, CardImage } from '../components/Card';
 
 export async function loader({ request }: { request: Request }): Promise<{ products: Product[]; q: string }> {
@@ -18,6 +19,9 @@ export async function loader({ request }: { request: Request }): Promise<{ produ
 export default function Products() {
   const { products, q } = useLoaderData() as Awaited<ReturnType<typeof loader>>;
   const submit = useSubmit();
+  const navigation = useNavigation();
+
+  const isLoading = navigation.location && new URLSearchParams(navigation.location.search).has('q');
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const isFirstSearch = !q.length;
@@ -42,8 +46,12 @@ export default function Products() {
             name='q'
             defaultValue={q}
             onChange={onChange}
+            readOnly={isLoading}
             className='border outline-none p-2 rounded w-full md:w-1/4'
           />
+          <div className={isLoading ? '' : 'hidden'}>
+            <Spinner />
+          </div>
         </Form>
       </section>
       <section>
