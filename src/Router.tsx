@@ -6,7 +6,7 @@ import Layout from "./components/Layout";
 import DashboardLayout from "./components/Dashboard";
 import DashboardIndex from "./pages/dashboard/DashboardIndex";
 import ErrorPage from "./pages/Error";
-import Products from "./pages/Products";
+import Products, { loader as productsLoader } from "./pages/Products";
 import SingleProduct from "./pages/SingleProduct";
 import FormsTest, { action as formsTestAction } from "./pages/FormsTest";
 import DashboardProducts, {
@@ -40,7 +40,7 @@ const router = createBrowserRouter([
             {
                 path: 'products',
                 element: <Products />,
-                loader: DashboardProductsLoader 
+                loader: productsLoader
             },
             {
                 path: 'products/:productId',
