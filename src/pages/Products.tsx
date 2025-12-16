@@ -1,4 +1,4 @@
-import { Link, useLoaderData, useSubmit } from 'react-router-dom';
+import { Form, Link, useLoaderData, useSubmit } from 'react-router-dom';
 import { siteConfig } from '../config/index';
 import ProductList from '../components/productsList';
 import { getProducts } from '../utils/fake-api';
@@ -34,6 +34,18 @@ export default function Products() {
           <p className="text-lg">shop our NIGHTMARES</p>
         </div>
       </header>
+      <section>
+        <Form role='search' className='flex items-center space-x-4'>
+          <input 
+            placeholder='search products...'
+            type='search'
+            name='q'
+            defaultValue={q}
+            onChange={onChange}
+            className='border outline-none p-2 rounded w-full md:w-1/4'
+          />
+        </Form>
+      </section>
       <section>
         {products.length ? (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
