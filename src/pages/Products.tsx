@@ -3,7 +3,7 @@ import { siteConfig } from '../config/index';
 import ProductList from '../components/productsList';
 import { getProducts } from '../utils/fake-api';
 import type { Product } from '../types';
-import type { ChangeEvent } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Spinner from '../components/Spinner';
 import { Card, CardTitle, CardDescription, CardContent, CardImage } from '../components/Card';
 
@@ -21,14 +21,31 @@ export default function Products() {
   const submit = useSubmit();
   const navigation = useNavigation();
 
+  const formRef = useRef<HTMLFormElement | null>(null);
+
+  const [search, setSearch] = useState(q);
+
+  useEffect(() => {
+    setSearch(q);
+  }, [q]);
+
   const isLoading = navigation.location && new URLSearchParams(navigation.location.search).has('q');
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const isFirstSearch = !q.length;
-    submit(e.currentTarget.form, {
-      replace: !isFirstSearch,
-    });
-  };
+  useEffect(() => {
+    if (!formRef.current) return;
+
+    const timeout = window.setTimeout(() => {
+      const isFirstSearch = !q.length;
+
+      submit(formRef.current, {
+        replace: isFirstSearch,
+      });
+    }, 500);
+
+    return () => {
+      window.clearTimeout(timeout);
+    };
+  }, [search, submit, q]);
 
   return (
     <div className="space-y-12">
@@ -39,15 +56,15 @@ export default function Products() {
         </div>
       </header>
       <section>
-        <Form role='search' className='flex items-center space-x-4'>
-          <input 
-            placeholder='search products...'
-            type='search'
-            name='q'
-            defaultValue={q}
-            onChange={onChange}
+        <Form ref={formRef} role="search" className="flex items-center space-x-4">
+          <input
+            placeholder="search products..."
+            type="search"
+            name="q"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
             readOnly={isLoading}
-            className='border outline-none p-2 rounded w-full md:w-1/4'
+            className="border outline-none p-2 rounded w-full md:w-1/4"
           />
           <div className={isLoading ? '' : 'hidden'}>
             <Spinner />
