@@ -23,7 +23,7 @@ export async function action({
 
         return editProduct(productId, { isInWishList });
     } catch (e) {
-        const error = 'an error occured. please try again later';
+        const error = 'an error occurred. please try again later';
         return { error };
     }
 }
