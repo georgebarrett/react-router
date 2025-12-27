@@ -1,6 +1,9 @@
 import { Outlet, useNavigation } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
+import Spinner from "./Spinner";
+import { ToastContainer } from "react-toastify/unstyled";
+import "react-toastify/dist/ReactToastify.css";
 
 
 export default function Layout() {
@@ -9,13 +12,15 @@ export default function Layout() {
 
     return ( 
         <main className="flex flex-col min-h-screen">
+            {isLoading && <Spinner />}
             <Header />
             <div className={`container mx-auto py-24 ${
-                isLoading ? 'opacity-25' : 'opacity-100'
+                isLoading ? 'opacity-25' : ''
             }`}>
                 <Outlet />
             </div>
             <Footer />
+            <ToastContainer />
         </main>
     );
 }
