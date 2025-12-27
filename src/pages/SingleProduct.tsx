@@ -41,7 +41,10 @@ export default function SingleProduct() {
     }
 
     const isSubmitting = fetcher.state === 'submitting';
-    const isInWishlist = product.isInWishList;
+    let isInWishlist = product.isInWishList;
+    if (fetcher.formData && !fetcher.data?.error) {
+        isInWishlist = fetcher.formData.get('wishlist') === 'true';
+    }
 
     const { data } = fetcher;
     
