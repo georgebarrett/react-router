@@ -11,7 +11,9 @@ export async function loader({ request }: { request: Request }): Promise<{ produ
   const url = new URL(request.url);
   const q = url.searchParams.get('q') ?? '';
 
-  const products = await getProducts(q);
+  const normalisedQ = q.trim().toLowerCase();
+
+  const products = await getProducts(normalisedQ);
 
   return { products, q };
 }
@@ -29,22 +31,25 @@ export default function Products() {
     setSearch(q);
   }, [q]);
 
-  const isLoading = navigation.location && new URLSearchParams(navigation.location.search).has('q');
+  const isSearching =
+    (navigation.state === 'submitting' || navigation.state === 'loading') &&
+    navigation.location &&
+    new URLSearchParams(navigation.location.search).has('q');
 
   useEffect(() => {
     if (!formRef.current) return;
 
+    if (search === q) return;
+
     const timeout = window.setTimeout(() => {
-      const isFirstSearch = !q.length;
+      const isFirstSearch = q.length === 0;
 
       submit(formRef.current, {
         replace: isFirstSearch,
       });
     }, 500);
 
-    return () => {
-      window.clearTimeout(timeout);
-    };
+    return () => window.clearTimeout(timeout);
   }, [search, submit, q]);
 
   return (
@@ -56,17 +61,17 @@ export default function Products() {
         </div>
       </header>
       <section>
-        <Form ref={formRef} role="search" className="flex items-center space-x-4">
+        <Form method="get" ref={formRef} role="search" className="flex items-center space-x-4">
           <input
             placeholder="search products..."
             type="search"
             name="q"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            readOnly={isLoading}
+            readOnly={isSearching}
             className="border outline-none p-2 rounded w-full md:w-1/4"
           />
-          <div className={isLoading ? '' : 'hidden'}>
+          <div className={isSearching ? '' : 'hidden'}>
             <Spinner />
           </div>
         </Form>
