@@ -30,10 +30,14 @@ export async function action({
 
 export default function SingleProduct() {
     const product = useLoaderData() as Awaited<ReturnType<typeof loader>>;
+    const fetcher = useFetcher();
 
     if (!product) {
         return <Navigate to='/products' replace={true} />;
     }
+
+    const isSubmitting = fetcher.state === 'loading';
+    const isInWishlist = product.isInWishList;
 
     return (
         <div className="space-y-12">
@@ -59,6 +63,19 @@ export default function SingleProduct() {
                         <dd>{product.price}</dd>
                     </div>
                 </dl>
+            </section>
+            <section className="space-y-6">
+                <fetcher.Form method='post'>
+                    <button
+                        name="wishlist"
+                        type="submit"
+                        value={isInWishlist ? 'false' : 'true'}
+                        disabled={isSubmitting}
+                        className="bg-black hover:bg-gray-800 px-4 py-2 rounded text-white"
+                    >
+                        {isInWishlist ? 'remove from wishlist' : 'add to wishlist'}
+                    </button>
+                </fetcher.Form>
             </section>
         </div>
     );
