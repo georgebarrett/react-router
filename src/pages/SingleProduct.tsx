@@ -3,6 +3,8 @@ import { useLoaderData, Navigate, useFetcher } from "react-router-dom";
 import { siteConfig } from "../config/index";
 import { loader } from "./dashboard/DashboardProduct";
 import { editProduct } from "../utils/fake-api";
+import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 const path = 'products/:productId';
 
@@ -17,14 +19,16 @@ export async function SingleProductAction({
         throw new Error('product not found');
     }
 
+    // toast test
+    // return { error: 'drip' };
+
     try {
         const formData = await request.formData();
         const isInWishList = formData.get('wishlist') === 'true';
 
         return editProduct(productId, { isInWishList });
     } catch (e) {
-        const error = 'an error occurred. please try again later';
-        return { error };
+        return { error: 'an error occurred. please try again later' };
     }
 }
 
@@ -36,8 +40,16 @@ export default function SingleProduct() {
         return <Navigate to='/products' replace={true} />;
     }
 
-    const isSubmitting = fetcher.state === 'loading';
+    const isSubmitting = fetcher.state === 'submitting';
     const isInWishlist = product.isInWishList;
+
+    const { data } = fetcher;
+    
+    useEffect(() => {
+        if (data?.error) {
+            toast.error(data.error, { toastId: 'error' });
+        }
+    }, [data?.error])
 
     return (
         <div className="space-y-12">
