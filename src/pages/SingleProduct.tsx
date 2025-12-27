@@ -1,8 +1,32 @@
 import type { ParamParseKey, Params } from "react-router-dom";
-import { useLoaderData, Navigate, Form } from "react-router-dom";
+import { useLoaderData, Navigate, useFetcher } from "react-router-dom";
 import { siteConfig } from "../config/index";
 import { loader } from "./dashboard/DashboardProduct";
+import { editProduct } from "../utils/fake-api";
 
+const path = 'products/:productId';
+
+export async function action({
+    request,
+    params: { productId }
+} : {
+    request: Request;
+    params: Params<ParamParseKey<typeof path>>;
+}) {
+    if (!productId) {
+        throw new Error('product not found');
+    }
+
+    try {
+        const formData = await request.formData();
+        const isInWishList = formData.get('wishlist') === 'true';
+
+        return editProduct(productId, { isInWishList });
+    } catch (e) {
+        const error = 'an error occured. please try again later';
+        return { error };
+    }
+}
 
 export default function SingleProduct() {
     const product = useLoaderData() as Awaited<ReturnType<typeof loader>>;
