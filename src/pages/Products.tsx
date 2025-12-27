@@ -73,7 +73,7 @@ export default function Products() {
             value={search}
             onChange={(e) => {
               setSearch(e.target.value);
-              onChange(formRef.current);
+              onChange(e.currentTarget.form);
             }}
             readOnly={isSearching}
             className="border outline-none p-2 rounded w-full md:w-1/4"
