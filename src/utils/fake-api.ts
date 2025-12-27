@@ -20,7 +20,7 @@ export async function getProducts(searchTerm?: string): Promise<Product[]> {
 
   if (searchTerm) {
     productsList = productsList.filter((product) => {
-      product.title.includes(searchTerm);
+      return product.title.toLocaleLowerCase().includes(searchTerm);
     });
   }
 
