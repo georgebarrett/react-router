@@ -2,7 +2,7 @@ import { Outlet, useNavigation } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
 import Spinner from "./Spinner";
-import { ToastContainer } from "react-toastify/unstyled";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 
