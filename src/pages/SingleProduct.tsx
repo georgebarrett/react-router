@@ -6,7 +6,7 @@ import { editProduct } from "../utils/fake-api";
 
 const path = 'products/:productId';
 
-export async function action({
+export async function SingleProductAction({
     request,
     params: { productId }
 } : {
