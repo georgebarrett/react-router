@@ -50,6 +50,12 @@ export default function Products() {
     [q, submit]
   );
 
+  useEffect(() => {
+    return () => {
+      onChange.cancel();
+    };
+  }, [onChange]);
+
   return (
     <div className="space-y-12">
       <header>
