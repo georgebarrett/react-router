@@ -3,7 +3,8 @@ import { siteConfig } from '../config/index';
 import ProductList from '../components/productsList';
 import { getProducts } from '../utils/fake-api';
 import type { Product } from '../types';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
+import debounce from 'lodash/debounce';
 import Spinner from '../components/Spinner';
 import { Card, CardTitle, CardDescription, CardContent, CardImage } from '../components/Card';
 
@@ -36,21 +37,18 @@ export default function Products() {
     navigation.location &&
     new URLSearchParams(navigation.location.search).has('q');
 
-  useEffect(() => {
-    if (!formRef.current) return;
+  const onChange = useCallback(
+    debounce((form: HTMLFormElement | null) => {
+      if (!form) return;
 
-    if (search === q) return;
-
-    const timeout = window.setTimeout(() => {
       const isFirstSearch = q.length === 0;
 
-      submit(formRef.current, {
-        replace: isFirstSearch,
+      submit(form, {
+        replace: isFirstSearch
       });
-    }, 500);
-
-    return () => window.clearTimeout(timeout);
-  }, [search, submit, q]);
+    }, 500),
+    [q, submit]
+  );
 
   return (
     <div className="space-y-12">
