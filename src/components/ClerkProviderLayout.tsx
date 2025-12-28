@@ -16,6 +16,10 @@ export default function ClerkProviderLayout() {
         publishableKey={clerkKey}
         routerPush={(to: string) => navigate(to)}
         routerReplace={(to: string) => navigate(to, { replace: true })}
+        signInUrl="/sign-in"
+        signUpUrl="/sign-up"
+        signInFallbackRedirectUrl="/"
+        signUpFallbackRedirectUrl="/"
       >
         <Outlet />
     </ClerkProvider>
