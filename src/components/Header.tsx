@@ -1,9 +1,11 @@
 import { Link, NavLink } from "react-router-dom";
 import { siteConfig } from '../config/index';
 import { useUser, UserButton } from "@clerk/clerk-react";
+import useAdmin from "../hooks/useAdmin";
 
 export default function Header() {
     const { isSignedIn } = useUser();
+    const isAdmin = useAdmin();
 
     const getNavLinkClasses = ({ isActive }: { isActive: boolean }) => {
         return isActive ? 'font-semibold underline' : '';
@@ -24,9 +26,11 @@ export default function Header() {
                 {isSignedIn && (
                     <div className="flex items-center space-x-4">
                         <UserButton />
-                        <NavLink to="/dashboard" className={getNavLinkClasses}> 
-                            Dashboard
-                        </NavLink>
+                        {isAdmin && (    
+                            <NavLink to="/dashboard" className={getNavLinkClasses}> 
+                                Dashboard
+                            </NavLink>
+                        )}
                     </div>
                 )}
                 {!isSignedIn && (
