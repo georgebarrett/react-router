@@ -15,6 +15,7 @@ import DashboardProduct, { loader as dashboardProductLoader } from './pages/dash
 import DashboardNewProduct, { action as dashboardNewProductAction } from './pages/dashboard/DashboardNewProduct';
 import DashboardEditProduct, { action as dashboardEditProductAction } from './pages/dashboard/DashboardEditProduct';
 import { action as dashboardDestroyAction } from './pages/dashboard/DashboardDestroyProduct';
+import AdminAuth from './components/AdminAuth';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -45,7 +46,9 @@ const router = createBrowserRouter(
         element={
           <>
             <SignedIn>
-              <DashboardLayout />
+              <AdminAuth>
+                <DashboardLayout />
+              </AdminAuth>
             </SignedIn>
             <SignedOut>
               <RedirectToSignIn />
