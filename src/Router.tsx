@@ -1,104 +1,78 @@
-import { createBrowserRouter } from "react-router-dom";
-import Home from "./pages/Home";
-import About from "./pages/About";
-import NotFound from "./pages/NotFound";
-import Layout from "./components/Layout";
-import DashboardLayout from "./components/Dashboard";
-import DashboardIndex from "./pages/dashboard/DashboardIndex";
-import ErrorPage from "./pages/Error";
-import Products, { loader as productsLoader } from "./pages/Products";
-import SingleProduct, { SingleProductAction } from "./pages/SingleProduct";
-import FormsTest, { action as formsTestAction } from "./pages/FormsTest";
-import DashboardProducts, {
-    loader as DashboardProductsLoader
-} from "./pages/dashboard/DashboardProducts";
-import DashboardProduct, {
-    loader as DashboardProductLoader
-} from "./pages/dashboard/DashboardProduct";
-import DashboardNewProduct, {
-    action as DashboardNewProductAction
-} from "./pages/dashboard/DashboardNewProduct";
-import DashboardEditProduct, {
-    action as DashboardEditProductAction
-} from "./pages/dashboard/DashboardEditProduct";
-import { action as destroyAction } from './pages/dashboard/DashboardDestroyProduct';
+import { createBrowserRouter, createRoutesFromElements, Route } from 'react-router-dom';
+import { RedirectToSignIn, SignedOut, SignedIn, SignIn, SignUp } from '@clerk/clerk-react';
+import ClerkProviderLayout from './components/ClerkProviderLayout';
+import Layout from './components/Layout';
+import ErrorPage from './pages/Error';
+import NotFound from './pages/NotFound';
+import Home from './pages/Home';
+import About from './pages/About';
+import DashboardLayout from './components/Dashboard';
+import Products, { loader as productsLoader } from './pages/Products';
+import SingleProduct, { SingleProductAction } from './pages/SingleProduct';
+import DashboardIndex from './pages/dashboard/DashboardIndex';
+import DashboardProducts, { loader as dashboardProductsLoader } from './pages/dashboard/DashboardProducts';
+import DashboardProduct, { loader as dashboardProductLoader } from './pages/dashboard/DashboardProduct';
+import DashboardNewProduct, { action as dashboardNewProductAction } from './pages/dashboard/DashboardNewProduct';
+import DashboardEditProduct, { action as dashboardEditProductAction } from './pages/dashboard/DashboardEditProduct';
+import { action as dashboardDestroyAction } from './pages/dashboard/DashboardDestroyProduct';
 
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route element={<ClerkProviderLayout />}>
+      {/* Public site routes */}
+      <Route path="/" element={<Layout />} errorElement={<ErrorPage />}>
+        <Route index element={<Home />} />
+        <Route path="about" element={<About />} />
 
-const router = createBrowserRouter([
-    {
-        path: '/',
-        element: <Layout />,
-        children: [
-            {
-                index: true,
-                element: <Home />
-            },
-            {
-                path: 'about',
-                element: <About />
-            },
-            {
-                path: 'products',
-                element: <Products />,
-                loader: productsLoader
-            },
-            {
-                path: 'products/:productId',
-                element: <SingleProduct />,
-                loader: DashboardProductLoader,
-                action: SingleProductAction
-            },
-            {
-                path: '*',
-                element: <NotFound />
-            }
-        ]
-    },
-    {
-        path: '/dashboard',
-        element: <DashboardLayout />,
-        children: [
-            {
-                errorElement: <ErrorPage />,
-                children: [
-                    {
-                        index: true,
-                        element: <DashboardIndex />
-                    },
-                    {
-                        path: 'products',
-                        element: <DashboardProducts />,
-                        loader: DashboardProductsLoader,
-                    },
-                    {
-                        path: 'products/new',
-                        element: <DashboardNewProduct />,
-                        action: DashboardNewProductAction
-                    },
-                    {
-                        path: 'products/:productId',
-                        element: <DashboardProduct />,
-                        loader: DashboardProductLoader,
-                    },
-                    {
-                        path: 'products/:productId/edit',
-                        element: <DashboardEditProduct />,
-                        loader: DashboardProductLoader,
-                        action: DashboardEditProductAction
-                    },
-                    {
-                        path: 'products/:productId/destroy',
-                        action: destroyAction
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        path: '/forms-test',
-        element: <FormsTest />,
-        action: formsTestAction
-    }
-]);
+        <Route path="products" element={<Products />} loader={productsLoader} />
+
+        <Route
+          path="products/:productId"
+          element={<SingleProduct />}
+          loader={dashboardProductLoader}
+          action={SingleProductAction}
+        />
+
+        <Route path="sign-in/*" element={<SignIn routing="path" path="/sign-in" />} />
+        <Route path="sign-up/*" element={<SignUp routing="path" path="/sign-up" />} />
+
+        <Route path="*" element={<NotFound />} />
+      </Route>
+
+      {/* Protected dashboard routes */}
+      <Route
+        path="dashboard"
+        element={
+          <>
+            <SignedIn>
+              <DashboardLayout />
+            </SignedIn>
+            <SignedOut>
+              <RedirectToSignIn />
+            </SignedOut>
+          </>
+        }
+        errorElement={<ErrorPage />}
+      >
+        <Route index element={<DashboardIndex />} />
+
+        <Route path="products" element={<DashboardProducts />} loader={dashboardProductsLoader} />
+
+        <Route path="products/new" element={<DashboardNewProduct />} action={dashboardNewProductAction} />
+
+        <Route path="products/:productId" element={<DashboardProduct />} loader={dashboardProductLoader} />
+
+        <Route
+          path="products/:productId/edit"
+          element={<DashboardEditProduct />}
+          loader={dashboardProductLoader}
+          action={dashboardEditProductAction}
+        />
+
+        <Route path="products/:productId/destroy" action={dashboardDestroyAction} />
+      </Route>
+    </Route>,
+  ),
+);
 
 export { router };
