@@ -1,7 +1,10 @@
 import { Link, NavLink } from "react-router-dom";
 import { siteConfig } from '../config/index';
+import { useUser, UserButton } from "@clerk/clerk-react";
 
 export default function Header() {
+    const { isSignedIn } = useUser();
+
     const getNavLinkClasses = ({ isActive }: { isActive: boolean }) => {
         return isActive ? 'font-semibold underline' : '';
     }
@@ -18,6 +21,15 @@ export default function Header() {
                         <NavLink to='/products' className={getNavLinkClasses}>Products</NavLink>
                     </nav>
                 </div>
+                {isSignedIn && (
+                    <div className="flex items-center space-x-4">
+                        <UserButton />
+                        <NavLink to="/dashboard" className={getNavLinkClasses}> 
+                            Dashboard
+                        </NavLink>
+                    </div>
+                )}
+                
             </div>
         </header>
     );
