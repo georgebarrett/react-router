@@ -1,10 +1,12 @@
 import type { ParamParseKey, Params } from "react-router-dom";
-import { useLoaderData, Navigate, useFetcher } from "react-router-dom";
+import { useLoaderData, Navigate, useFetcher, useNavigate } from "react-router-dom";
 import { siteConfig } from "../config/index";
 import { loader } from "./dashboard/DashboardProduct";
 import { editProduct } from "../utils/fake-api";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
+import { useUser } from "@clerk/clerk-react";
+import type { MouseEvent } from "react";
 
 const path = 'products/:productId';
 
@@ -35,6 +37,8 @@ export async function SingleProductAction({
 export default function SingleProduct() {
     const product = useLoaderData() as Awaited<ReturnType<typeof loader>>;
     const fetcher = useFetcher();
+    const navigate = useNavigate();
+    const { isSignedIn } = useUser();
 
     if (!product) {
         return <Navigate to='/products' replace={true} />;
@@ -53,6 +57,13 @@ export default function SingleProduct() {
             toast.error(data.error, { toastId: 'error' });
         }
     }, [data?.error])
+
+    const onClick = (e: MouseEvent<HTMLButtonElement>) => {
+        if (!isSignedIn) {
+            e.preventDefault();
+            navigate('sign-in');
+        }
+    };
 
     return (
         <div className="space-y-12">
@@ -81,11 +92,13 @@ export default function SingleProduct() {
             </section>
             <section className="space-y-6">
                 <fetcher.Form method='post'>
+                    <input type="hidden" name="isSignedIn" value={`${isSignedIn}`} />
                     <button
                         name="wishlist"
                         type="submit"
                         value={isInWishlist ? 'false' : 'true'}
                         disabled={isSubmitting}
+                        onClick={onClick}
                         className="bg-black hover:bg-gray-800 px-4 py-2 rounded text-white"
                     >
                         {isInWishlist ? 'remove from wishlist' : 'add to wishlist'}
