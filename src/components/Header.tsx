@@ -35,8 +35,8 @@ export default function Header() {
                 )}
                 {!isSignedIn && (
                     <div className="flex items-center space-x-4">
-                        <NavLink to="/sign-in" className={getNavLinkClasses}>
-                            Sign in
+                        <NavLink to="/sign-up" className={getNavLinkClasses}>
+                            Sign up
                         </NavLink>
                     </div>
                 )}
