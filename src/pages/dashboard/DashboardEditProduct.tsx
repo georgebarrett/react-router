@@ -1,6 +1,5 @@
 import { Form, redirect, useActionData, useLoaderData, useNavigation, Navigate } from "react-router-dom";
 import type { Params, ParamParseKey } from "react-router-dom";
-import { siteConfig } from "../../config";
 import { editProduct } from "../../utils/fake-api";
 import { loader } from "./DashboardProduct";
 import { isValidUrl } from "../../utils";
@@ -75,15 +74,15 @@ export default function DashboardEditProduct() {
     return (
         <div className="space-y-12">
             <header>
-                <h1 className="font-bold text-3xl md:text-4xl">edit nightmare</h1>
-                <p className="text-lg">edit nightmare details</p>
+                <h1 className="font-bold text-3xl md:text-4xl">Edit hardware</h1>
+                <p className="text-lg">Edit hardware details</p>
             </header>
 
             {errors?.form && <div className="font-bold text-3xl md:text-4xl">{errors?.form}</div>}
 
             <Form method="post" className="space-y-6">
                 <label className="flex flex-col space-y-1">
-                    <span className="font-medium">nightmare title</span>
+                    <span className="font-medium">Hardware title</span>
                     <input
                         type="text"
                         name="title"
@@ -94,7 +93,7 @@ export default function DashboardEditProduct() {
                     {errors?.title && <p className="text-red-800 text-sm">{errors.title}</p>}
                 </label>
                 <label className="flex flex-col space-y-1">
-                    <span className="font-medium">nightmare description</span>
+                    <span className="font-medium">Hardware description</span>
                     <textarea name="description" defaultValue={product.description} className="border p-2 rounded" />
                 </label>
                 <label className="flex flex-col space-y-1">
