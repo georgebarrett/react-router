@@ -1,5 +1,4 @@
 import { Link, useLoaderData } from "react-router-dom";
-import { siteConfig } from "../../config";
 import ProductList from "../../components/productsList";
 import type { Product } from "../../types";
 import { getProducts } from "../../utils/fake-api";
@@ -17,7 +16,7 @@ export default function DashboardProducts() {
             <header className="flex items-center justify-between">
                 <div>
                     <h1 className="font-bold text-3xl md:text-4xl">Products</h1>
-                    <p className="text-lg">Listing of NIGHTMARES</p>
+                    <p className="text-lg">An array of synths and drum machines</p>
                 </div>
                 <Link
                     to='/dashboard/products/new'
