@@ -1,6 +1,4 @@
 import { Form, Link, useLoaderData, useNavigation, useSubmit } from 'react-router-dom';
-import { siteConfig } from '../config/index';
-import ProductList from '../components/productsList';
 import { getProducts } from '../utils/fake-api';
 import type { Product } from '../types';
 import { useEffect, useRef, useState, useCallback } from 'react';
@@ -61,7 +59,7 @@ export default function Products() {
       <header>
         <div>
           <h1 className="font-bold text-3xl md:text-4xl">Shop Products</h1>
-          <p className="text-lg">shop our NIGHTMARES</p>
+          <p className="text-lg">Expert knob twiddlers encouraged</p>
         </div>
       </header>
       <section>
