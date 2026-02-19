@@ -5,7 +5,7 @@ export default function DashboardIndex() {
     <section className="min-h-screen bg-white text-black px-6 py-20">
       <div className="max-w-5xl mx-auto">
 
-        <div className="mt-20 w-32 h-[2px] bg-gradient-to-r from-teal-600 to-transparent"></div>
+        <div className="mt-16 w-32 h-[2px] bg-gradient-to-r from-teal-600 to-transparent"></div>
 
         <header className="mb-12 mt-16">
           <h1 className="text-4xl md:text-5xl font-black tracking-tight mb-3">
