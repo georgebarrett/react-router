@@ -1,5 +1,4 @@
 import { Form, redirect, useActionData, useNavigation } from "react-router-dom";
-import { siteConfig } from "../../config";
 import { addProduct } from "../../utils/fake-api";
 import { isValidUrl, isValidPrice } from "../../utils";
 
@@ -55,15 +54,15 @@ export default function DashboardNewProduct() {
     return (
         <div className="space-y-12">
             <header>
-                <h1 className="font-bold text-3xl md:text-4xl">new nightmare</h1>
-                <p className="text-lg">create a new nightmare</p>
+                <h1 className="font-bold text-3xl md:text-4xl">New hardware?</h1>
+                <p className="text-lg">Add a new piece of kit</p>
             </header>
 
             {errors?.form && <div className="font-bold text-3xl md:text-4xl">{errors?.form}</div>}
 
             <Form method="post" className="space-y-6">
                 <label className="flex flex-col space-y-1">
-                    <span className="font-medium">nightmare title</span>
+                    <span className="font-medium">hardware title</span>
                     <input
                         type="text"
                         name="title"
@@ -73,7 +72,7 @@ export default function DashboardNewProduct() {
                     {errors?.title && <p className="text-red-800 text-sm">{errors.title}</p>}
                 </label>
                 <label className="flex flex-col space-y-1">
-                    <span className="font-medium">nightmare description</span>
+                    <span className="font-medium">hardware description</span>
                     <textarea name="description" className="border p-2 rounded" />
                 </label>
                 <label className="flex flex-col space-y-1">
