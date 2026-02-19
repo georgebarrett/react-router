@@ -1,6 +1,5 @@
 import type { ParamParseKey, Params } from "react-router-dom";
 import { useLoaderData, Navigate, useFetcher, useNavigate } from "react-router-dom";
-import { siteConfig } from "../config/index";
 import { loader } from "./dashboard/DashboardProduct";
 import { editProduct } from "../utils/fake-api";
 import { toast } from "react-toastify";
