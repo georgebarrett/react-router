@@ -1,6 +1,5 @@
 import type { ParamParseKey, Params } from "react-router-dom";
 import { useLoaderData, Navigate, Form, useNavigation } from "react-router-dom";
-import { siteConfig } from "../../config";
 import type { Product } from "../../types";
 import { getProduct } from "../../utils/fake-api";
 
