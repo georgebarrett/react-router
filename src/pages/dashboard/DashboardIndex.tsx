@@ -5,7 +5,7 @@ export default function DashboardIndex() {
                 <h1 className="font-bold text-3xl md:text-4xl">Dashboard</h1>
                 <p className="text-lg">Store Dashboard</p>
             </header>
-            <p>Welcome to your worst NIGHTMARE</p>
+            <p>Welcome to the epicentre of electronic music hardware</p>
         </div>
     );
 }
