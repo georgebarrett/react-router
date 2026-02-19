@@ -14,9 +14,7 @@ export default function Layout() {
         <main className="flex flex-col min-h-screen">
             {isLoading && <Spinner />}
             <Header />
-            <div className={`container mx-auto py-24 ${
-                isLoading ? 'opacity-25' : ''
-            }`}>
+            <div className={`${isLoading ? 'opacity-25' : ''}`}>
                 <Outlet />
             </div>
             <Footer />
