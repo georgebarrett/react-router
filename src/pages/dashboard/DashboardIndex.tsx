@@ -28,7 +28,7 @@ export default function DashboardIndex() {
 
         <Link
             to="/dashboard/products"
-            className="block border border-neutral-200 rounded-lg p-6 hover:shadow-md hover:border-teal-500 transition group"
+            className="block border w-[200px] border-neutral-200 rounded-lg p-6 hover:shadow-md hover:border-teal-500 transition group"
             >
             <p className="text-sm uppercase tracking-wide text-neutral-500">
                 Edit Products
