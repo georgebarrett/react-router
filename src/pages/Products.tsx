@@ -18,12 +18,13 @@ export async function loader({ request }: { request: Request }): Promise<{ produ
 }
 
 export default function Products() {
-  const { products, q } = useLoaderData() as Awaited<ReturnType<typeof loader>>;
+  const { products, q } = useLoaderData() as Awaited<
+    ReturnType<typeof loader>
+  >;
   const submit = useSubmit();
   const navigation = useNavigation();
 
   const formRef = useRef<HTMLFormElement | null>(null);
-
   const [search, setSearch] = useState(q);
 
   useEffect(() => {
@@ -31,7 +32,8 @@ export default function Products() {
   }, [q]);
 
   const isSearching =
-    (navigation.state === 'submitting' || navigation.state === 'loading') &&
+    (navigation.state === 'submitting' ||
+      navigation.state === 'loading') &&
     navigation.location &&
     new URLSearchParams(navigation.location.search).has('q');
 
@@ -42,7 +44,7 @@ export default function Products() {
       const isFirstSearch = q.length === 0;
 
       submit(form, {
-        replace: isFirstSearch
+        replace: isFirstSearch,
       });
     }, 500),
     [q, submit]
@@ -55,17 +57,27 @@ export default function Products() {
   }, [onChange]);
 
   return (
-    <div className="space-y-12">
-      <header>
-        <div>
-          <h1 className="font-bold text-3xl md:text-4xl">Shop Products</h1>
-          <p className="text-lg">Expert knob twiddlers encouraged</p>
-        </div>
-      </header>
-      <section>
-        <Form method="get" ref={formRef} role="search" className="flex items-center space-x-4">
+    <section className="min-h-screen bg-white text-black px-6 py-24">
+      <div className="max-w-6xl mx-auto">
+
+        <div className="mt-16 w-32 h-[2px] bg-gradient-to-r from-teal-600 to-transparent"></div>
+
+        <h1 className="text-4xl mt-16 md:text-6xl font-black tracking-tight leading-tight mb-10">
+          Shop Products
+        </h1>
+
+        <p className="text-lg md:text-xl text-neutral-700 mb-12">
+          Expert knob twiddlers encouraged.
+        </p>
+
+        <Form
+          method="get"
+          ref={formRef}
+          role="search"
+          className="flex items-center gap-4 mb-16"
+        >
           <input
-            placeholder="search products..."
+            placeholder="Search products..."
             type="search"
             name="q"
             value={search}
@@ -74,36 +86,49 @@ export default function Products() {
               onChange(e.currentTarget.form);
             }}
             readOnly={isSearching}
-            className="border outline-none p-2 rounded w-full md:w-1/4"
+            className="w-full md:w-1/3 border border-neutral-300 focus:border-teal-600 focus:ring-0 outline-none px-4 py-3 rounded transition"
           />
-          <div className={isSearching ? '' : 'hidden'}>
-            <Spinner />
-          </div>
+          {isSearching && <Spinner />}
         </Form>
-      </section>
-      <section>
+
         {products.length ? (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {products.map((product) => (
-              <Card key={product.id}>
+              <Card key={product.id} className="hover:shadow-lg transition">
                 <CardImage>
                   <Link to={`/products/${product.id}`}>
-                    <img src={product.imageUrl} className="object-cover aspect-square rounded-t-lg" />
+                    <img
+                      src={product.imageUrl}
+                      alt={product.title}
+                      className="object-cover aspect-square w-full rounded-t-lg"
+                    />
                   </Link>
                 </CardImage>
                 <CardContent>
                   <CardTitle>
-                    <Link to={`/products/${product.id}`}>{product.title}</Link>
+                    <Link
+                      to={`/products/${product.id}`}
+                      className="hover:text-teal-600 transition"
+                    >
+                      {product.title}
+                    </Link>
                   </CardTitle>
-                  <CardDescription>{product.description}</CardDescription>
+                  <CardDescription className="text-neutral-600">
+                    {product.description}
+                  </CardDescription>
                 </CardContent>
               </Card>
             ))}
           </div>
         ) : (
-          <p className="bg-gray-50 border text-gray-500 p-6 rounded-lg">no products found</p>
+          <div className="border border-neutral-200 rounded-lg p-8 text-neutral-500">
+            No products found.
+          </div>
         )}
-      </section>
-    </div>
+
+        <div className="mt-20 w-32 h-[2px] bg-gradient-to-r from-teal-600 to-transparent"></div>
+
+      </div>
+    </section>
   );
 }
