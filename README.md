@@ -1,73 +1,91 @@
-# React + TypeScript + Vite
+A modern synth and drum machine shop built with React, Vite, and TypeScript.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Syntheads is a boutique electronic music hardware storefront with an admin dashboard for managing products. The project focuses on clean UI design, structured routing, and modern React patterns using React Router.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Features:
+Public Storefront
 
-## React Compiler
+Full-screen hero homepage
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Editorial-style About page
 
-## Expanding the ESLint configuration
+Product catalogue with search
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Individual product pages
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Responsive design with Tailwind CSS
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Admin Dashboard:
+Protected routes with Clerk authentication
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Product management (create, edit, delete)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Form validation
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Search with debounced input
+
+Styled admin control centre
+
+
+Technical Highlights:
+React Router v7 (data loaders + actions)
+
+TypeScript throughout
+
+Vite for fast development
+
+Tailwind CSS for styling
+
+Clerk for authentication
+
+Fake API using localStorage (for demo purposes)
+
+Debounced search using lodash
+
+Toast notifications via react-toastify
+
+
+Tech Stack:
+React 19
+
+TypeScript
+
+Vite
+
+React Router DOM v7
+
+Styling
+
+Tailwind CSS
+
+PostCSS
+
+Autoprefixer
+
+Auth
+
+Clerk
+
+Utilities
+
+Lodash (debounce)
+
+React Toastify
+
+Tooling
+
+ESLint
+
+Prettier
+
+
+Getting going:
+clone the repository:
+git clone https://github.com/georgebarrett/react-router
+cd into react-router
+
+'npm install' to install the dependencies
+
+'npm run dev' to start the development server
